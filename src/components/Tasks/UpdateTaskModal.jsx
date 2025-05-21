@@ -9,7 +9,7 @@ const UpdateTaskModal = ({ task, showModal, setShowModal, token }) => {
   const [deadline, setDeadline] = useState("");
   const [budget, setBudget] = useState("");
 
-  // If task is passed, initialize form fields with task data
+  
   useEffect(() => {
     if (task) {
       setTitle(task.title || "");
