@@ -16,10 +16,7 @@ const Home = () => {
       <PopularSellers />
 
       <AppPromo />
-      {/* <Subscription />
-      <Numbers />
-      <HomeBlog />
-      <FaqSection /> */}
+      
     </div>
   );
 };
