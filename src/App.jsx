@@ -18,7 +18,7 @@ function App() {
   }, []);
 
   // Don't show navbar/footer on 404 page
-  const hideLayoutRoutes = ["/404"]; // You can match more if needed
+  const hideLayoutRoutes = ["/404"]; 
   const isLayoutVisible = !hideLayoutRoutes.includes(location.pathname);
 
   return (
