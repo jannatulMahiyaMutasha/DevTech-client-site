@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
-import { auth, provider, signInWithPopup } from "../firebase"; // Firebase
-
+import { auth, provider, signInWithPopup } from "../firebase"; 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
