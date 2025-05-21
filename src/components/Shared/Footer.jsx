@@ -72,7 +72,7 @@ export default function Footer() {
       </div>
 
       {/* Copyright */}
-      <div className="text-center text-sm mt-8 border-t border-blue-500 pt-4">
+      <div className="text-center text-sm mt-8 border-t border-white pt-4">
         © {new Date().getFullYear()} DevTech. All rights reserved.
       </div>
     </footer>
