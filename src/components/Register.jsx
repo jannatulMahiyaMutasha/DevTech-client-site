@@ -11,7 +11,6 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    // Validate password strength
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!passwordRegex.test(password)) {
       return Swal.fire(
