@@ -11,7 +11,7 @@ const MyPostedTasks = () => {
     const fetchTasks = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("http://localhost:8800/api/my-tasks", {
+        const response = await axios.get("https://freelancer-website-server.vercel.app/api/my-tasks", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTasks(response.data);
@@ -27,7 +27,7 @@ const MyPostedTasks = () => {
   const handleDelete = async (taskId) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://localhost:8800/api/tasks/${taskId}`, {
+      await axios.delete(`https://freelancer-website-server.vercel.app/api/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(tasks.filter((task) => task._id !== taskId));

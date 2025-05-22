@@ -4,7 +4,7 @@ DevTech is a modern freelancing platform designed to seamlessly connect individu
 
 ## Live Site
 
-[Visit Site](https://subscription-box-website.vercel.app/)
+[Visit Site](https://freelancetaskdevtech.web.app/)
 
 ---
 

@@ -21,7 +21,7 @@ const Register = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:8800/api/register", {
+      const res = await axios.post("https://freelancer-website-server.vercel.app/api/register", {
         name,
         email,
         password,
@@ -44,7 +44,7 @@ const Register = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName, photoURL } = result.user;
-      const res = await axios.post("http://localhost:8800/api/save-user", {
+      const res = await axios.post("https://freelancer-website-server.vercel.app/api/save-user", {
         email,
         name: displayName,
         photoURL,
