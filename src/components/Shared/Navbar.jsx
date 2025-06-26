@@ -6,6 +6,7 @@ export default function Navbar() {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [theme, setTheme] = useState("light");
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,11 +23,20 @@ export default function Navbar() {
       setIsLoggedIn(false);
     }
 
-    // Load theme from localStorage
     const savedTheme = localStorage.getItem("theme") || "light";
     setTheme(savedTheme);
     document.documentElement.setAttribute("data-theme", savedTheme);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest("#user-dropdown")) {
+        setShowUserDropdown(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -46,7 +56,7 @@ export default function Navbar() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="bg-black text-white px-4 py-4 shadow-md">
+    <nav className="bg-black text-white px-4 py-6 shadow-md fixed top-0 w-full z-50">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
         <Link to="/" className="text-xl font-bold">
           DevTech
@@ -74,13 +84,26 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              to="/add-task"
+              to="/about"
               className={`block py-1 ${
-                isActive("/add-task") ? "font-semibold underline" : ""
+                isActive("/about") ? "font-semibold underline" : ""
               }`}
             >
-              Add Task
+              About
             </Link>
+            {isLoggedIn ? (
+              <Link
+                to="/add-task"
+                className={`block py-1 ${
+                  isActive("/add-task") ? "font-semibold underline" : ""
+                }`}
+              >
+                Add Task
+              </Link>
+            ) : (
+              ""
+            )}
+
             <Link
               to="/browse-tasks"
               className={`block py-1 ${
@@ -90,13 +113,25 @@ export default function Navbar() {
               Browse Tasks
             </Link>
             <Link
-              to="/my-posted-tasks"
+              to="/contact"
               className={`block py-1 ${
-                isActive("/my-posted-tasks") ? "font-semibold underline" : ""
+                isActive("/browse-tasks") ? "font-semibold underline" : ""
               }`}
             >
-              My Posted Tasks
+              Contact
             </Link>
+            {isLoggedIn ? (
+              <Link
+                to="/dashboard"
+                className={`block py-1 ${
+                  isActive("/my-posted-tasks") ? "font-semibold underline" : ""
+                }`}
+              >
+                Dashboard
+              </Link>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="mt-4 md:mt-0 flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
@@ -110,33 +145,40 @@ export default function Navbar() {
             </button>
 
             {isLoggedIn ? (
-              <div className="flex items-center gap-4">
-                {user?.photoURL ? (
-                  <div className="relative group cursor-pointer">
+              <div className="relative" id="user-dropdown">
+                <div
+                  className="cursor-pointer flex items-center gap-2"
+                  onClick={() => setShowUserDropdown((prev) => !prev)}
+                >
+                  {user?.photoURL ? (
                     <img
                       src={user.photoURL}
                       alt="User"
                       className="w-8 h-8 rounded-full border-2 border-white"
                     />
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-black text-white text-sm px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition duration-200 whitespace-nowrap z-10 text-center">
-                      <div>{user.name || "No Name"}</div>
-                      <div className="text-gray-300 text-xs">
-                        {user.email || "No email"}
-                      </div>
+                  ) : (
+                    <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-black">
+                      ?
                     </div>
-                  </div>
-                ) : (
-                  <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-black">
-                    ?
+                  )}
+                </div>
+
+                {showUserDropdown && (
+                  <div className="absolute right-0 mt-2 bg-black text-white rounded shadow-lg p-3 text-sm z-20 w-48">
+                    <div className="mb-2 font-medium">
+                      {user.name || "No Name"}
+                    </div>
+                    <div className="mb-3 text-gray-300">
+                      {user.email || "No email"}
+                    </div>
+                    <button
+                      onClick={logout}
+                      className="w-full bg-red-500 hover:bg-red-600 px-3 py-1 rounded"
+                    >
+                      Logout
+                    </button>
                   </div>
                 )}
-
-                <button
-                  onClick={logout}
-                  className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition"
-                >
-                  Logout
-                </button>
               </div>
             ) : (
               <div className="flex items-center gap-2">

@@ -1,9 +1,10 @@
-import React from "react";
 import Hero from "../components/Hero/Hero";
 import PopularCategories from "../components/Categories/PopularCategories";
 import ServiceCards from "../components/Tasks/FeaturedTasks";
 import PopularSellers from "../components/Seller/PopularSeller";
 import AppPromo from "../components/AppPromo/AppPromo";
+import PopularTasks from "../components/Tasks/PopularTasks";
+import Stat from "../components/Stat/Stat";
 
 const Home = () => {
   return (
@@ -12,11 +13,12 @@ const Home = () => {
     >
       <Hero />
       <PopularCategories />
-      <ServiceCards />
-      <PopularSellers />
 
+      <ServiceCards />
+      <Stat></Stat>
+      <PopularSellers />
+      <PopularTasks></PopularTasks>
       <AppPromo />
-      
     </div>
   );
 };

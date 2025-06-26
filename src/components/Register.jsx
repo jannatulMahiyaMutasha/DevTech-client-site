@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
-import { auth, provider, signInWithPopup } from "../firebase"; 
+import { auth, provider, signInWithPopup } from "../firebase"; // Firebase
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleRegister = async () => {
+    // Validate password strength
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!passwordRegex.test(password)) {
       return Swal.fire(
@@ -21,12 +23,15 @@ const Register = () => {
     }
 
     try {
-      const res = await axios.post("https://freelancer-website-server.vercel.app/api/register", {
-        name,
-        email,
-        password,
-        photoURL,
-      });
+      const res = await axios.post(
+        "https://freelancer-website-server.vercel.app/api/register",
+        {
+          name,
+          email,
+          password,
+          photoURL,
+        }
+      );
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify({ name, email, photoURL }));
       Swal.fire("Success", "Registration successful", "success");
@@ -44,11 +49,14 @@ const Register = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName, photoURL } = result.user;
-      const res = await axios.post("https://freelancer-website-server.vercel.app/api/save-user", {
-        email,
-        name: displayName,
-        photoURL,
-      });
+      const res = await axios.post(
+        "https://freelancer-website-server.vercel.app/api/save-user",
+        {
+          email,
+          name: displayName,
+          photoURL,
+        }
+      );
       localStorage.setItem("token", res.data.token);
       localStorage.setItem(
         "user",

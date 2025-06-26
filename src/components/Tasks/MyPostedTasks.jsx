@@ -11,9 +11,12 @@ const MyPostedTasks = () => {
     const fetchTasks = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("https://freelancer-website-server.vercel.app/api/my-tasks", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://freelancer-website-server.vercel.app/api/my-tasks",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setTasks(response.data);
       } catch (err) {
         setError("Error fetching tasks");
@@ -27,9 +30,12 @@ const MyPostedTasks = () => {
   const handleDelete = async (taskId) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`https://freelancer-website-server.vercel.app/api/tasks/${taskId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `https://freelancer-website-server.vercel.app/api/tasks/${taskId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setTasks(tasks.filter((task) => task._id !== taskId));
     } catch (err) {
       setError("Error deleting task");
@@ -46,7 +52,7 @@ const MyPostedTasks = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 mt-10 text-center">
       <h2 className="text-2xl font-bold mb-4">My Posted Tasks</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
